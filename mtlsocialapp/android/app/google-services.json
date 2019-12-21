@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "758767247121",
+    "firebase_url": "https://mtlsocial.firebaseio.com",
+    "project_id": "mtlsocial",
+    "storage_bucket": "mtlsocial.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:758767247121:android:56e8dadbc004ba5f2c76b0",
+        "android_client_info": {
+          "package_name": "com.example.mtlsocialapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "758767247121-i15ol5iq8tmd7l7c6i9ubv45586c8c1d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPyVwvPVXe6f98_AMaiA1Blfud8Ugl7nk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "758767247121-i15ol5iq8tmd7l7c6i9ubv45586c8c1d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

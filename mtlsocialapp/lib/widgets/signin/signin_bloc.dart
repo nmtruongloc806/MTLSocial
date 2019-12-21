@@ -1,41 +1,84 @@
-
 import 'dart:async';
 
-import 'package:mtlsocialapp/utils/validations.dart';
+import 'package:mtlsocialapp/blocs/auth_bloc.dart';
 
-class SignInBloc{
-  StreamController _userController = new StreamController<String>();
+class SignInBloc {
+  var _authBloc = AuthBloc();
+  StreamController _nameController = new StreamController();
+  StreamController _phoneController = new StreamController();
+  StreamController _emailController = new StreamController();
   StreamController _passController = new StreamController();
+  StreamController _emailSignInController = new StreamController();
+  StreamController _passSignInController = new StreamController();
 
-  Stream get userStream => _userController.stream.transform(_streamTransformer);
+
+  Stream get nameStream => _nameController.stream;
+  Stream get phoneStream => _phoneController.stream;
+  Stream get emailStream => _emailController.stream;
   Stream get passStream => _passController.stream;
+  Stream get emailSignInStream => _emailSignInController.stream;
+  Stream get passSignInStream => _passSignInController.stream;
 
-  var _streamTransformer = 
-    StreamTransformer<String,String>.fromHandlers(handleData: (data , sink){
-      data += "MTL";
-      sink.addError(data);
-  });
-
-  bool isValidInfo(String userName,String password){
-    if(!Validations.isValidUserName(userName))
-    {
-      _userController.sink.addError("Invalid Username");
+  bool CheckValidSignIn(String email, String pass) {
+    if (email == null || email.length == 0) {
+      _emailController.sink.addError("Nhập email");
       return false;
     }
+    _emailController.sink.add("");
 
-    _userController.sink.add("OK");
-
-    if(!Validations.isValidPassword(password))
-    {
-      _passController.sink.addError("Invalid Password");
+    if (pass == null || pass.length < 6) {
+      _passController.sink.addError("Mật khẩu phải trên 5 ký tự");
       return false;
     }
-    _passController.sink.add("OK");
+    _passController.sink.add("");
+
     return true;
   }
 
-  void dispose(){
-    _userController.close();
+  void signIn(String email, String pass, Function onSuccess,
+      Function(String) onSignInError) {
+    _authBloc.signIn(email, pass, onSuccess, onSignInError);
+  }
+
+  bool CheckValidSignUp(String name,String phone,String email, String pass) {
+    if (name == null || name.length == 0) {
+      _nameController.sink.addError("Nhập tên");
+      return false;
+    }
+    _nameController.sink.add("");
+
+    if (phone == null || phone.length == 0) {
+      _phoneController.sink.addError("Nhập số điện thoại");
+      return false;
+    }
+    _phoneController.sink.add("");
+
+    if (email == null || email.length == 0) {
+      _emailController.sink.addError("Nhập email");
+      return false;
+    }
+    _emailController.sink.add("");
+
+    if (pass == null || pass.length < 6) {
+      _passController.sink.addError("Mật khẩu phải trên 5 ký tự");
+      return false;
+    }
+    _passController.sink.add("");
+
+    return true;
+  }
+
+  void signUp(String email, String pass, String phone, String name,
+      Function onSuccess, Function(String) onError) {
+    _authBloc.signUp(email, pass, name, phone, onSuccess, onError);
+  }
+
+  void dispose() {
+    _nameController.close();
+    _phoneController.close();
+    _emailController.close();
     _passController.close();
+    _emailSignInController.close();
+    _passSignInController.close();
   }
 }
